@@ -15,13 +15,11 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
-# Request models
 class ChatRequest(BaseModel):
     message: str = Field(..., description="User's message", min_length=1, max_length=5000)
     session_id: Optional[str] = Field(None, description="Session ID (will create new if not provided)")
     user_type: Optional[str] = Field("customer", description="User type for specialized responses")
 
-# Response models
 class ChatResponse(BaseModel):
     response: str = Field(..., description="AI's response")
     session_id: str = Field(..., description="Session identifier")
@@ -29,7 +27,6 @@ class ChatResponse(BaseModel):
     is_new_session: bool = Field(..., description="Whether this was a new session")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 
-# Global agent instance (we'll make this better later with dependency injection)
 chat_agent = None
 
 async def get_chat_agent() -> ChatAgent:
@@ -53,18 +50,15 @@ async def chat(
     - If session_id is not provided or doesn't exist: starts a new session
     """
     try:
-        # Generate new session ID if not provided
         if not request.session_id:
             session_id = str(uuid.uuid4())
             is_new_session = True
         else:
             session_id = request.session_id
-            # Check if session exists (simplified for now)
             is_new_session = not await agent.session_exists(session_id)
         
         logger.info(f"Chat request - Session: {session_id}, New: {is_new_session}, Message: {request.message[:50]}...")
         
-        # Process the chat message
         response = await agent.chat(
             message=request.message,
             session_id=session_id,
@@ -79,7 +73,7 @@ async def chat(
             metadata={
                 "message_length": len(request.message),
                 "response_length": len(response),
-                "processing_time": "calculated_later"  # We'll add timing later
+                "processing_time": "calculated_later"
             }
         )
         

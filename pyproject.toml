@@ -62,17 +62,51 @@ dev = [
     "mypy>=1.0.0",
 ]
 
-# LLM Provider extensions
-anthropic = ["langchain-anthropic>=0.3.0"]
-groq = ["langchain-groq>=0.3.0"]  
-gemini = ["langchain-google-genai>=0.3.0"]
-ollama = []  # ChatOllama comes with langchain-community
+# LLM Provider extensions - Required for get_llm() utility function
+anthropic = [
+    "langchain-anthropic>=0.3.0",
+]
+groq = [
+    "langchain-groq>=0.3.0",
+]  
+gemini = [
+    "langchain-google-genai>=0.3.0",
+    "google-generativeai>=0.8.0",  # Additional dependency for Gemini
+]
+ollama = [
+    # ChatOllama comes with langchain-community (already in main dependencies)
+    # No additional packages required
+]
 
-# Install all providers
+# Additional LLM providers (extensible)
+cohere = ["langchain-cohere>=0.3.0"]
+huggingface = ["langchain-huggingface>=0.3.0"] 
+fireworks = ["langchain-fireworks>=0.3.0"]
+
+# Install all LLM providers at once
 all-providers = [
     "langchain-anthropic>=0.3.0",
     "langchain-groq>=0.3.0", 
     "langchain-google-genai>=0.3.0",
+    "google-generativeai>=0.8.0",
+    "langchain-cohere>=0.3.0",
+    "langchain-huggingface>=0.3.0",
+    "langchain-fireworks>=0.3.0",
+]
+
+# Complete development environment
+dev-complete = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=6.2.0",
+    "ruff>=0.1.5",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    # Include all LLM providers for full development
+    "langchain-anthropic>=0.3.0",
+    "langchain-groq>=0.3.0", 
+    "langchain-google-genai>=0.3.0",
+    "google-generativeai>=0.8.0",
 ]
 
 [tool.hatch.build.targets.wheel]

@@ -6,10 +6,8 @@ Supports multiple LLM providers with dynamic loading.
 import logging
 import os
 
-# Core LangChain
 from langchain_openai import ChatOpenAI
 
-# Multi-provider imports (install dependencies as needed)
 try:
     from langchain_anthropic import ChatAnthropic
 except ImportError:
@@ -37,7 +35,7 @@ def get_llm():
     """Get the LLM based on environment configuration."""
     
     llm_provider = os.getenv("LLM_PROVIDER", "openai").lower()
-    
+    logger.info(f"Using LLM provider: {llm_provider}")
     if llm_provider == "openai":
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:

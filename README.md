@@ -56,6 +56,10 @@ app/agents/
    cp env.example .env
    # Edit .env and add your OPENAI_API_KEY
    ```
+4. **Start the App**
+   ```bash
+     python -m uvicorn app.main:app --reload --port 8000
+   ```    
 
 ### Basic Usage
 
@@ -164,14 +168,24 @@ graph TD
 ### Quick Setup
 
 ```bash
-# Set your provider
+# Install base dependencies
+pip install -e .
+
+# Install specific LLM provider
+pip install -e ".[anthropic]"  # For Claude
+pip install -e ".[groq]"       # For Groq
+pip install -e ".[gemini]"     # For Gemini  
+pip install -e ".[ollama]"     # For Ollama (no extra deps)
+
+# Install all LLM providers
+pip install -e ".[all-providers]"
+
+# Development environment with all providers
+pip install -e ".[dev-complete]"
+
+# Set your provider and API key
 export LLM_PROVIDER=anthropic  # openai, anthropic, groq, gemini, ollama
-
-# Set API key (except Ollama)
 export ANTHROPIC_API_KEY=your_key_here
-
-# Install provider dependencies
-pip install -e ".[anthropic]"  # or groq, gemini, all-providers
 ```
 
 ### 🔧 Extensible to 50+ Models

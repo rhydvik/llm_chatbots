@@ -39,7 +39,6 @@ class ChatAgent:
         """Initialize the chat agent."""
         logger.info("Initializing chat agent...")
         
-        # Get LLM based on environment configuration
         self.llm = get_llm()
         
         if self.llm is None:
