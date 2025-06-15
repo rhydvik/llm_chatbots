@@ -111,7 +111,6 @@ class TestChatFunctionality:
         """Test that chat creates session entries."""
         session_id = "new_session_test"
         
-        # Debug: Check initial state
         print(f"\nBefore chat - Sessions: {initialized_chat_agent.sessions}")
         print(f"ChatNodes sessions: {initialized_chat_agent.chat_nodes.sessions}")
         print(f"Same object? {initialized_chat_agent.sessions is initialized_chat_agent.chat_nodes.sessions}")
@@ -122,12 +121,10 @@ class TestChatFunctionality:
             user_type="customer"
         )
         
-        # Debug: Check after chat
         print(f"Response: {response}")
         print(f"After chat - Sessions: {initialized_chat_agent.sessions}")
         print(f"ChatNodes sessions: {initialized_chat_agent.chat_nodes.sessions}")
         
-        # Session should be created
         assert session_id in initialized_chat_agent.sessions
         session_info = initialized_chat_agent.sessions[session_id]
         assert session_info.session_id == session_id

@@ -14,6 +14,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from .states.chat_state import SessionInfo
 from .nodes.chat_nodes import ChatNodes
 from .graph.chat_graph import ChatGraphBuilder
+from app.utils.llm_provider import get_llm
 
 logger = logging.getLogger(__name__)
 
@@ -36,28 +37,20 @@ class ChatAgent:
         
     async def initialize(self):
         """Initialize the chat agent."""
-        logger.info("Initializing simple chat agent...")
+        logger.info("Initializing chat agent...")
         
-        # Initialize OpenAI LLM
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            logger.warning("OPENAI_API_KEY not found. Using placeholder.")
-            # For demo purposes, we'll create a mock LLM
-            self.llm = None
-        else:
-            self.llm = ChatOpenAI(
-                model="gpt-4o-mini",
-                temperature=0.7,
-                max_tokens=1000,
-                api_key=api_key
-            )
+        # Get LLM based on environment configuration
+        self.llm = get_llm()
+        
+        if self.llm is None:
+            logger.warning("No LLM configured. Running in mock mode.")
         
         self.chat_nodes = ChatNodes(llm=self.llm, sessions=self.sessions)
         self.graph_builder = ChatGraphBuilder(self.chat_nodes)
         
         self.graph = self.graph_builder.build_graph(self.memory)
         
-        logger.info("Simple chat agent initialized successfully")
+        logger.info("Chat agent initialized successfully")
     
     async def chat(self, message: str, session_id: str = "default", user_type: str = "customer") -> str:
         """

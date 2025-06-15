@@ -120,10 +120,23 @@ async def clear_session(
 @router.get("/health")
 async def chat_health():
     """Health check for chat service."""
+    from app.utils.llm_provider import get_available_providers, validate_provider_config
+    import os
+    
+    current_provider = os.getenv("LLM_PROVIDER", "openai")
+    available_providers = get_available_providers()
+    provider_status = validate_provider_config(current_provider)
+    
     return {
         "status": "healthy",
         "service": "chat",
         "agent_initialized": chat_agent is not None,
+        "llm_config": {
+            "current_provider": current_provider,
+            "available_providers": available_providers,
+            "provider_configured": provider_status["configured"],
+            "missing_config": provider_status.get("missing", [])
+        },
         "endpoints": {
             "chat": "/chat/",
             "history": "/chat/sessions/{session_id}/history",

@@ -151,6 +151,65 @@ graph TD
     D --> Memory
 ```
 
+## 🤖 Multi-LLM Provider Support
+
+### Currently Configured Providers
+
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Anthropic](https://img.shields.io/badge/Anthropic-Claude-000000?style=for-the-badge&logo=anthropic&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-LPU-FF6600?style=for-the-badge&logo=groq&logoColor=white)
+![Google](https://img.shields.io/badge/Google-Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-Local-000000?style=for-the-badge&logo=ollama&logoColor=white)
+
+### Quick Setup
+
+```bash
+# Set your provider
+export LLM_PROVIDER=anthropic  # openai, anthropic, groq, gemini, ollama
+
+# Set API key (except Ollama)
+export ANTHROPIC_API_KEY=your_key_here
+
+# Install provider dependencies
+pip install -e ".[anthropic]"  # or groq, gemini, all-providers
+```
+
+### 🔧 Extensible to 50+ Models
+
+The same configuration pattern supports **all LangChain providers**:
+
+<details>
+<summary>Click to see available models</summary>
+
+**Major Cloud Providers:**
+- `ChatAnthropic` - Claude 3.5 Sonnet, Haiku, Opus
+- `ChatOpenAI` - GPT-4, GPT-3.5, GPT-4o
+- `ChatVertexAI` - Gemini Pro, PaLM 2
+- `ChatCohere` - Command R+, Command Light
+- `ChatHuggingFace` - Llama, Mistral, CodeLlama
+
+**High-Performance Inference:**
+- `ChatGroq` - Ultra-fast Llama, Mixtral
+- `ChatAnyscale` - Optimized open models
+- `ChatFireworks` - Fast inference platform
+- `ChatDeepInfra` - Cost-effective hosting
+
+**Specialized Models:**
+- `ChatOllama` - Local/private deployment
+- `ChatLlamaCpp` - C++ optimized models
+- `ChatMLX` - Apple Silicon optimization
+- `ChatSparkLLM` - iFlytek's models
+
+**Enterprise & Regional:**
+- `ChatBaichuan` - Chinese language models
+- `ChatZhipuAI` - ChatGLM models  
+- `ChatTongyi` - Alibaba's Qwen models
+- `ChatYandexGPT` - Yandex models
+
+</details>
+
+**Add any provider:** Just update `app/utils/llm_provider.py` with the same pattern!
+
 ## 🔧 Configuration
 
 ### Environment Variables
@@ -303,7 +362,8 @@ For support and questions:
 
 ## 🗺️ Roadmap
 
-- [ ] Add support for more LLM providers (Anthropic, Google, etc.)
+- [x] **Multi-LLM Provider Support** (OpenAI, Anthropic, Groq, Gemini, Ollama)
+- [ ] Add support for more specialized providers (Cohere, HuggingFace, Fireworks)
 - [ ] Implement advanced conversation features (context summarization)
 - [ ] Add metrics and analytics dashboard
 - [ ] Support for custom tools and function calling
