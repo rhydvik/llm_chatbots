@@ -19,7 +19,7 @@ class ChatNodes:
     
     def __init__(self, llm: ChatOpenAI = None, sessions: Dict[str, SessionInfo] = None):
         self.llm = llm
-        self.sessions = sessions or {}
+        self.sessions = sessions if sessions is not None else {}
     
     async def input_processing_node(self, state: ChatState) -> ChatState:
         """Node for processing user input and preparing context."""
