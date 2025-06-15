@@ -1,0 +1,111 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chatbot-boilerplate"
+version = "0.1.0"
+description = "A comprehensive chatbot boilerplate with LangGraph, multi-user support, and vector database integration"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+    # Core FastAPI and server
+    "fastapi>=0.115.0",
+    "uvicorn>=0.34.0",
+    "python-multipart>=0.0.6",
+    "python-dotenv>=1.0.0",
+    
+    # LangChain ecosystem
+    "langchain>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-text-splitters>=0.3.0",
+    "langsmith>=0.3.0",
+    "langgraph>=0.4.7",
+    
+    # Vector Database
+    "pinecone>=6.0.0",
+    
+    # Data handling and validation
+    "pydantic>=2.11.0",
+    "pydantic-settings>=2.9.0",
+    "numpy>=2.2.0",
+    
+    # HTTP clients and utilities
+    "httpx>=0.28.0",
+    "aiohttp>=3.11.0",
+    "requests>=2.32.0",
+    "httpx-sse>=0.4.0",
+    
+    # Data processing
+    "beautifulsoup4>=4.13.0",
+    "tqdm>=4.67.0",
+    "zstandard>=0.23.0",
+    
+    # Database (SQLAlchemy for optional persistence)
+    "sqlalchemy>=2.0.0",
+    
+    # Additional utilities
+    "typing-extensions>=4.13.0",
+    "tenacity>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.1.5",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]  # Line too long (handled by formatter)
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=app",
+    "--cov-report=term-missing",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true 

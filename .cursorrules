@@ -1,0 +1,4 @@
+1. Avoid comments like this
+
+ # Initialize nodes and graph builder
+self.chat_nodes = ChatNodes(llm=self.llm, sessions=self.sessions)

@@ -1,0 +1,299 @@
+# =============================================================================
+# USER TYPES CONFIGURATION
+# =============================================================================
+# Define different user personas and their associated tools and capabilities.
+# This configuration enables multi-user type support in the chatbot.
+
+user_types:
+  # =============================================================================
+  # BASIC USER TYPES
+  # =============================================================================
+
+  customer:
+    name: "Customer"
+    description: "End users and general customers"
+    priority: 1
+    capabilities:
+      - "search_products"
+      - "get_support"
+      - "place_orders"
+      - "check_status"
+    tools:
+      - "search_general"
+      - "customer_support"
+      - "order_status"
+      - "general_inquiry"
+    prompt_context: |
+      You are assisting a customer. Be helpful, friendly, and focus on solving their needs.
+      Provide clear explanations and guide them through available options.
+    max_context_length: 8
+
+  support_agent:
+    name: "Support Agent"
+    description: "Customer support representatives and help desk agents"
+    priority: 2
+    capabilities:
+      - "search_products"
+      - "access_customer_data"
+      - "escalate_issues"
+      - "process_refunds"
+      - "manage_tickets"
+    tools:
+      - "search_general"
+      - "search_advanced"
+      - "customer_lookup"
+      - "ticket_management"
+      - "refund_processing"
+      - "escalation_tools"
+    prompt_context: |
+      You are assisting a support agent. Provide detailed information, access customer data,
+      and help resolve complex issues efficiently. Focus on accuracy and completeness.
+    max_context_length: 12
+
+  manager:
+    name: "Manager"
+    description: "Team managers and supervisors"
+    priority: 3
+    capabilities:
+      - "search_products"
+      - "access_analytics"
+      - "manage_team"
+      - "generate_reports"
+      - "system_administration"
+    tools:
+      - "search_general"
+      - "search_advanced"
+      - "analytics_dashboard"
+      - "team_management"
+      - "report_generation"
+      - "admin_tools"
+    prompt_context: |
+      You are assisting a manager. Provide strategic insights, analytics data,
+      and help with decision-making. Focus on business impact and team efficiency.
+    max_context_length: 15
+
+  # =============================================================================
+  # INDUSTRY-SPECIFIC USER TYPES (Examples)
+  # =============================================================================
+
+  # E-commerce Example
+  shopper:
+    name: "Shopper"
+    description: "Online shoppers and buyers"
+    priority: 1
+    capabilities:
+      - "browse_products"
+      - "compare_items"
+      - "check_reviews"
+      - "track_orders"
+      - "manage_wishlist"
+    tools:
+      - "product_search"
+      - "product_comparison"
+      - "review_system"
+      - "order_tracking"
+      - "wishlist_management"
+    prompt_context: |
+      You are helping a shopper find and purchase products. Be enthusiastic about products,
+      help with comparisons, and guide them through the buying process.
+    max_context_length: 10
+
+  vendor:
+    name: "Vendor"
+    description: "Product vendors and suppliers"
+    priority: 2
+    capabilities:
+      - "manage_inventory"
+      - "update_products"
+      - "view_sales_data"
+      - "process_orders"
+      - "handle_returns"
+    tools:
+      - "inventory_management"
+      - "product_updates"
+      - "sales_analytics"
+      - "order_processing"
+      - "return_handling"
+    prompt_context: |
+      You are assisting a vendor. Help with inventory management, sales insights,
+      and business operations. Focus on efficiency and profit optimization.
+    max_context_length: 12
+
+  # Healthcare Example
+  patient:
+    name: "Patient"
+    description: "Healthcare patients and users"
+    priority: 1
+    capabilities:
+      - "book_appointments"
+      - "view_records"
+      - "get_health_info"
+      - "prescription_refills"
+      - "emergency_support"
+    tools:
+      - "appointment_booking"
+      - "medical_records"
+      - "health_information"
+      - "prescription_management"
+      - "emergency_protocols"
+    prompt_context: |
+      You are assisting a patient. Be empathetic, clear, and helpful with health-related queries.
+      Always prioritize safety and encourage professional medical consultation when needed.
+    max_context_length: 8
+    compliance:
+      - "HIPAA"
+      - "medical_privacy"
+
+  healthcare_provider:
+    name: "Healthcare Provider"
+    description: "Doctors, nurses, and medical staff"
+    priority: 3
+    capabilities:
+      - "access_patient_data"
+      - "schedule_management"
+      - "clinical_decision_support"
+      - "prescription_management"
+      - "medical_research"
+    tools:
+      - "patient_lookup"
+      - "clinical_tools"
+      - "scheduling_system"
+      - "prescription_tools"
+      - "medical_database"
+    prompt_context: |
+      You are assisting a healthcare provider. Provide accurate medical information,
+      support clinical decisions, and help with administrative tasks efficiently.
+    max_context_length: 20
+    compliance:
+      - "HIPAA"
+      - "medical_accuracy"
+
+  # Financial Services Example
+  client:
+    name: "Financial Client"
+    description: "Banking and financial services clients"
+    priority: 1
+    capabilities:
+      - "check_accounts"
+      - "transfer_funds"
+      - "investment_info"
+      - "loan_applications"
+      - "financial_planning"
+    tools:
+      - "account_services"
+      - "fund_transfers"
+      - "investment_tools"
+      - "loan_processing"
+      - "financial_advisor"
+    prompt_context: |
+      You are assisting a financial client. Be professional, accurate with financial data,
+      and help with banking and investment needs while ensuring security.
+    max_context_length: 10
+    compliance:
+      - "financial_regulations"
+      - "data_security"
+
+  financial_advisor:
+    name: "Financial Advisor"
+    description: "Financial consultants and advisors"
+    priority: 3
+    capabilities:
+      - "client_portfolio_management"
+      - "market_analysis"
+      - "risk_assessment"
+      - "compliance_monitoring"
+      - "report_generation"
+    tools:
+      - "portfolio_tools"
+      - "market_data"
+      - "risk_analysis"
+      - "compliance_checker"
+      - "advisory_reports"
+    prompt_context: |
+      You are assisting a financial advisor. Provide comprehensive market insights,
+      portfolio analysis, and help with client advisory services.
+    max_context_length: 25
+    compliance:
+      - "financial_regulations"
+      - "fiduciary_duty"
+
+# =============================================================================
+# TOOL DEFINITIONS
+# =============================================================================
+# Define available tools and their configurations
+
+tools:
+  # General Tools
+  search_general:
+    name: "General Search"
+    description: "Basic search functionality for general queries"
+    type: "search"
+    permissions: ["read"]
+
+  search_advanced:
+    name: "Advanced Search"
+    description: "Advanced search with filters and analytics"
+    type: "search"
+    permissions: ["read", "analytics"]
+
+  customer_support:
+    name: "Customer Support"
+    description: "Access customer support tools and knowledge base"
+    type: "support"
+    permissions: ["read", "create_ticket"]
+
+  # Administrative Tools
+  admin_tools:
+    name: "Admin Tools"
+    description: "System administration and management tools"
+    type: "admin"
+    permissions: ["read", "write", "admin"]
+
+  analytics_dashboard:
+    name: "Analytics Dashboard"
+    description: "Business analytics and reporting dashboard"
+    type: "analytics"
+    permissions: ["read", "analytics"]
+
+# =============================================================================
+# DEFAULT CONFIGURATIONS
+# =============================================================================
+
+defaults:
+  fallback_user_type: "customer"
+  auto_detection_confidence_threshold: 0.4
+  session_timeout: 1800 # 30 minutes
+  max_conversation_turns: 50
+
+  # Dynamic prompting settings
+  enable_dynamic_prompts: true
+  prompt_adaptation_threshold: 3 # Adapt after N turns
+
+  # Tool access control
+  require_permission_check: true
+  default_permissions: ["read"]
+
+  # Conversation flow
+  enable_multi_stage_workflows: true
+  workflow_timeout: 3600 # 1 hour
+  max_workflow_stages: 10
+
+# =============================================================================
+# VALIDATION RULES
+# =============================================================================
+
+validation:
+  user_type_detection:
+    min_confidence: 0.3
+    max_retries: 3
+    fallback_strategy: "use_default"
+
+  tool_access:
+    strict_permissions: false
+    log_unauthorized_attempts: true
+    graceful_degradation: true
+
+  conversation_limits:
+    max_input_length: 5000
+    max_output_length: 8000
+    rate_limit_per_minute: 30
