@@ -1,4 +1,4 @@
-# Simple Chatbot with OpenAI Integration
+# Simple Chatbot with different LLM Integration
 
 A modular, production-ready chatbot built with LangGraph and OpenAI integration. This chatbot features a clean architecture with separated concerns, making it easy to maintain, extend, and test.
 
