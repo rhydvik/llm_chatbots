@@ -37,7 +37,7 @@ app/agents/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd chatbot-boilerplate
+   cd llm_chatbots
    ```
 
 2. **Create virtual environment**
